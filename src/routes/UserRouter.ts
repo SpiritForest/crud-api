@@ -25,7 +25,8 @@ const router = new Router();
 
 router.get('/api/users', (req: ExtendedIncomingMessage, res: ServerResponse): void => {
     const users = userDB.getAll();
-
+ 
+    res.setHeader("Content-Type", "application/json");
     res.write(JSON.stringify(users, null, 2));
     res.end();
 });
@@ -37,6 +38,7 @@ router.get('/api/users/{userId}', (req: ExtendedIncomingMessage, res: ServerResp
     if (!uuidv4Validate(userId)) {
         res.statusCode = 400;
     } else if (user) {
+        res.setHeader("Content-Type", "application/json");
         res.write(JSON.stringify(user, null, 2));
     } else {
         res.statusCode = 404;
@@ -54,6 +56,7 @@ router.post('/api/users', (req: ExtendedIncomingMessage, res: ServerResponse): v
         userDB.save(user);
 
         res.statusCode = 201;
+        res.setHeader("Content-Type", "application/json");
         res.write(JSON.stringify(user, null, 2));
     } else {
         res.statusCode = 400;
@@ -76,7 +79,8 @@ router.put('/api/users/{userId}', (req: ExtendedIncomingMessage, res: ServerResp
         user.update(body as IUser);
         userDB.save(user);
 
-        res.statusCode = 201;
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "application/json");
         res.write(JSON.stringify(user, null, 2));
     }
 
