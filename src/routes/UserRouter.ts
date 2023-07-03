@@ -20,7 +20,7 @@ const validateUserBody = (body: IUser) => {
     return isValid;
 }
 
-const userDB = new UserDB();
+const userDB = UserDB.getInstance();
 const router = new Router();
 
 router.get('/api/users', (req: ExtendedIncomingMessage, res: ServerResponse): void => {
@@ -76,8 +76,7 @@ router.put('/api/users/{userId}', (req: ExtendedIncomingMessage, res: ServerResp
     } else if (!user) {
         res.statusCode = 404;
     } else if (body) {
-        user.update(body as IUser);
-        userDB.save(user);
+        userDB.update(userId, body as User)
 
         res.statusCode = 200;
         res.setHeader("Content-Type", "application/json");

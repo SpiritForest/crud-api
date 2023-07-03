@@ -4,6 +4,7 @@ import UserRouter from './routes/UserRouter';
 import { ExtendedIncomingMessage } from './types/HTTPServerTypes';
 
 const requestListener = (req: IncomingMessage, res: ServerResponse) => {
+  console.log('The request is handled on port: ', config.PORT);
   const extendedReq: ExtendedIncomingMessage = Object.assign(req, {
     params: {},
     body: {},
@@ -24,7 +25,10 @@ export const startServer = (): Promise<http.Server<typeof http.IncomingMessage, 
   });
   
   return new Promise((res, rej) => {
-    server.listen(config.PORT, res.bind(null, server));
+    server.listen(config.PORT, () => {
+      console.log('The server is running on port: ' + config.PORT);
+      res(server);
+    });
     server.on('error', rej);
   });
 };

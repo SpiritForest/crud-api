@@ -5,6 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "start:dev": "nodemon --inspect ./src/index.ts",
+    "start:multi": "ts-node ./src/balancer.ts",
     "start:prod": "webpack --mode=production && node ./dist/bundle.mjs",
     "test": "ts-mocha src/test/**"
   },
