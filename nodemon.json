@@ -1,0 +1,4 @@
+{
+  "ignore": ["*.test.js", "**/fixtures/**"],
+  "exec": "ts-node ./src/index.ts"
+}
